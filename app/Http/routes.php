@@ -17,3 +17,9 @@ Route::get('/', function () {
 Route::get('/products','ProductController@index');
 Route::get('/products/{id}','ProductController@show');
 Route::get('/cart/','CartController@create');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('/permiso',"ProfileController@dar_permiso");
