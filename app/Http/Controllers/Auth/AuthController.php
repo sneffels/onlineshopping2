@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Cart;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,15 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
+        $user=User::where('email','=',$data['email'])->get();
+        if($user === null)
+        {
+
+        }else
+        {
+            $cart=Cart::where('userId','=',$user->id)->get();
+            $cart->delete();
+        }
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -63,10 +73,12 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
     }
 }

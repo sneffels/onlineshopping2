@@ -16,4 +16,11 @@ Route::get('/', function () {
 });
 Route::get('/products','ProductController@index');
 Route::get('/products/{id}','ProductController@show');
-Route::get('/cart/','CartController@create');
+Route::get('/product/edit/{id}','ProductController@edit');
+Route::put('product','ProductController@update');
+Route::get('/product/create ','ProductController@create');
+Route::post('product','ProductController@store');
+Route::post('/user/cart','CartController@store');
+Route::post('/cart/add','CartProductController@create');
+
+Route::auth();

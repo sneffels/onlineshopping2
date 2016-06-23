@@ -1,31 +1,35 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <form action="{{url('product')}}" method="post"  class="form-horizontal" enctype="multipart/form-data">
+        <form action="{{url('product')}}" method="put"  class="form-horizontal" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <div class="row">
                 <div class="col-md-6">
-                    <img src="" height="200" width="200" alt="Imagen del producto" id="imgProfile">
+                    <img src="{{'/images/'.$product->image_path}}" height="200" width="200" alt="Imagen del producto" id="imgProfile">
                     <input class="form-control" type="file" id="file-select" onchange="previewFile()" name="image_path">
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input class="form-control" name="name">
+                        <input class="form-control" name="name" value="{{$product->name}}">
                     </div>
                     <div class="form-group">
                         <label>Descripcion</label>
-                        <input class="form-control" name="description">
+                        <input class="form-control" name="description" value="{{$product->description}}">
                     </div>
                     <div class="form-group">
                         <label>Precio</label>
-                        <input class="form-control" name="price">
+                        <input class="form-control" name="price" value="{{$product->price}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Descuento</label>
+                        <input class="form-control" name="price" value="{{$product->save}}">
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success">Adicionar</button>
+            <button type="submit" class="btn btn-success">Guardar cambios</button>
 
         </form>
     </div>

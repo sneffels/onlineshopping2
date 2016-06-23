@@ -23,6 +23,13 @@
                                         <a href="{{url('/products/'.$product->id)}}">
                                             <button class="btn btn-success">Mas informacion</button>
                                         </a>
+                                        @if(Auth::user())
+                                            @if(Auth::user()->role == 'admin')
+                                            <a href="{{url('/products/edit/'.$product->id)}}">
+                                                <button class="btn btn-success">Modificar</button>
+                                            </a>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
                             </div>

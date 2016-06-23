@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -40,7 +41,10 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-
+        $cart=new Cart();
+        $cart->userId=$request->input('userId');
+        $cart->save();
+        return redirect('/user/cart/products');
     }
 
     /**

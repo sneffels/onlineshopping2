@@ -6,6 +6,7 @@ use App\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -29,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -40,7 +41,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name'=>'required',
+            'description'=>'required',
+            'price'=>'required',
+        ]);
+        $product=new Product();
+        $product->name          =   $request->input('name');
+        $product->description   =   $request->input('description');
+        $product->price         =   $request->input('price');
 
+        $product_image=$request->file('image_path');
+        $product->image_path=$product_image->getClientOriginalName();
+        $product->save();
+        $product_image->move(public_path().'/images/',$product_image->getClientOriginalName());
+        return redirect('/products');
     }
 
     /**
@@ -64,7 +79,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product=Product::find($id);
+        return view('products.edit')->with(['product'=>$product]);
     }
 
     /**
@@ -76,7 +92,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required',
+            'description'=>'required',
+            'price'=>'required',
+        ]);
+        $product=Product::find($id);
+        $product->name          =   $request->input('name');
+        $product->description   =   $request->input('description');
+        $product->price         =   $request->input('price');
+
+        $product_image=$request->file('image_path');
+        $product->image_path=$product_image->getClientOriginalName();
+        $product->save();
+        $product_image->move(public_path().'/images/',$product_image->getClientOriginalName());
+        return redirect('/products');
     }
 
     /**

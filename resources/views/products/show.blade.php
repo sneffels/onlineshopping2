@@ -17,12 +17,16 @@
                     <h5>Antes<p>{{$product->price + $product->save}} Bs.</p></h5>
 
                 @endif
-                <a href="{{url('/cart')}}">
-                    <button class=" btn btn-success">
+                <form action="{{url('/user/cart')}}" method="post">
+                    {{ csrf_field() }}
+                        <input type="text" value="{{Auth::user()->id}}" name="userId">
+                        <button class=" btn btn-success" type="submit">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
-                                Adicionar al carrito
-                    </button>
-                </a>
+                            Adicionar al carrito
+                        </button>
+
+                </form>
+
 
             </div>
         </div>
