@@ -2,21 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     <title>Laravel</title>
 
-        <!-- Fonts -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Fonts -->
     <link rel="stylesheet" href="/style/bootstrap.min.css">
 
 
-    <!-- Styles -->
-
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <style>
         body {
@@ -28,8 +21,9 @@
         }
     </style>
 </head>
-<body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
+<body id="app-layout" >
+
+<nav class="navbar navbar-default navbar-static-top" style="margin-top: -20px">
         <div class="container">
             <div class="navbar-header">
 
@@ -43,23 +37,28 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    Compras en linea
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ url('/products') }}">Inicio</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        <li><a href="{{ url('/login') }}">Ingresar</a></li>
+                        <li><a href="{{ url('/register') }}">Registrarse</a></li>
                     @else
+                        <li>
+                            <a href="/user/cart">
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                            </a>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -69,6 +68,7 @@
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
+
                     @endif
                 </ul>
             </div>
@@ -76,9 +76,12 @@
     </nav>
 
     @yield('content')
-    <script src="/style/jquery.js" type="javascript"></script>
-    <script src="/style/bootstrap.js" type="javascript"></script>
-    <!-- JavaScripts -->
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 </body>
 </html>

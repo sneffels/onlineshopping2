@@ -1,8 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <form action="{{url('product')}}" method="put"  class="form-horizontal" enctype="multipart/form-data">
+        <form action="{{url('product/update/'.$product->id)}}" method="post"  class="form-horizontal" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
+
             {{ csrf_field() }}
+
 
             <div class="row">
                 <div class="col-md-6">
@@ -24,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label>Descuento</label>
-                        <input class="form-control" name="price" value="{{$product->save}}">
+                        <input class="form-control" name="save" value="{{$product->save}}">
                     </div>
                 </div>
             </div>

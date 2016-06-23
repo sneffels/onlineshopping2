@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Faker\Provider\File;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Log;
+use Mockery\CountValidator\Exception;
 
 class ProductController extends Controller
 {
@@ -52,6 +54,7 @@ class ProductController extends Controller
         $product->price         =   $request->input('price');
 
         $product_image=$request->file('image_path');
+
         $product->image_path=$product_image->getClientOriginalName();
         $product->save();
         $product_image->move(public_path().'/images/',$product_image->getClientOriginalName());
@@ -96,17 +99,28 @@ class ProductController extends Controller
             'name'=>'required',
             'description'=>'required',
             'price'=>'required',
+            'save'=>'required'
         ]);
         $product=Product::find($id);
         $product->name          =   $request->input('name');
         $product->description   =   $request->input('description');
         $product->price         =   $request->input('price');
+        $product->save          =   $request->input('save');
 
-        $product_image=$request->file('image_path');
-        $product->image_path=$product_image->getClientOriginalName();
+
+        if(file_exists(public_path().'/images/'.$request->file('image_path'))) {
+
+        }
+        else
+        {
+            $product_image = $request->file('image_path');
+            $product->image_path = $product_image->getClientOriginalName();
+            $product_image->move(public_path() . '/images/', $product_image->getClientOriginalName());
+        }
+
         $product->save();
-        $product_image->move(public_path().'/images/',$product_image->getClientOriginalName());
         return redirect('/products');
+
     }
 
     /**

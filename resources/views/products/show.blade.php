@@ -17,15 +17,30 @@
                     <h5>Antes<p>{{$product->price + $product->save}} Bs.</p></h5>
 
                 @endif
-                <form action="{{url('/user/cart')}}" method="post">
-                    {{ csrf_field() }}
-                        <input type="text" value="{{Auth::user()->id}}" name="userId">
+                @if(Auth::user())
+
+                    <form action="{{url('/user/cart/')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" value="{{Auth::user()->id}}" name="userId">
+                        <input type="hidden" value="{{$product->id}}" name="productId">
                         <button class=" btn btn-success" type="submit">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                             Adicionar al carrito
                         </button>
 
-                </form>
+                    </form>
+                @else
+                    <a>
+                        <button class=" btn btn-success" onclick="logginmessage()">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                            Adicionar al carrito
+                        </button>
+                    </a>
+
+                @endif
+
+
+
 
 
             </div>
@@ -33,3 +48,9 @@
     </div>
 
 @endsection
+<script>
+    function logginmessage()
+    {
+        alert('Debes registrarte o logearte para usar el carrito');
+    }
+</script>

@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Cart;
+use App\ProductDetail;
+use App\Purchase;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
-class CartController extends Controller
+class PurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     public function index()
     {
-        return view('cart.add_to_cart');
+        $products=ProductDetail::where('userId','=',Auth::user()->id)->with('product')->get();
+        return view('purchase.create',['products'=>$products]);
     }
 
     /**
@@ -41,10 +40,20 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $cart=new Cart();
-        $cart->userId=$request->input('userId');
-        $cart->save();
-        return redirect('/user/cart/products');
+        $products=ProductDetail::where('userId','=',Auth::user()->id)->with('product')->get();
+        foreach($products as $product)
+        {
+            $purchase=new Purchase();
+            $purchase->userId=Auth::user()->id;
+            $purchase->productId=$product->product->id;
+            $purchase->quantity=$product->quantity;
+            $purchase->creditCardNumber=$request->input('creditCardNumber');
+            $purchase->provider=$request->input('provider');
+            $purchase->save();
+            $p=ProductDetail::find($product->id);
+            $p->delete();
+        }
+        return redirect('/products');
     }
 
     /**

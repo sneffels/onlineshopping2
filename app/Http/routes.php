@@ -17,10 +17,15 @@ Route::get('/', function () {
 Route::get('/products','ProductController@index');
 Route::get('/products/{id}','ProductController@show');
 Route::get('/product/edit/{id}','ProductController@edit');
-Route::put('product','ProductController@update');
+Route::put('product/update/{id}','ProductController@update');
 Route::get('/product/create ','ProductController@create');
 Route::post('product','ProductController@store');
-Route::post('/user/cart','CartController@store');
-Route::post('/cart/add','CartProductController@create');
+Route::post('/user/cart','ProductDetailController@store');
+Route::get('/user/cart','ProductDetailController@index');
+Route::get('/user/cart/product/{id}/modify','ProductDetailController@edit');
+Route::put('productdetail/update/{id}','ProductDetailController@update');
+Route::delete('productdetail/{id}','ProductDetailController@destroy');
+Route::get('/user/cart/purchase/','PurchaseController@index');
+Route::post('/user/cart/purchase/','PurchaseController@store');
 
 Route::auth();

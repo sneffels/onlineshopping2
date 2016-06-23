@@ -49,15 +49,7 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        $user=User::where('email','=',$data['email'])->get();
-        if($user === null)
-        {
 
-        }else
-        {
-            $cart=Cart::where('userId','=',$user->id)->get();
-            $cart->delete();
-        }
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
